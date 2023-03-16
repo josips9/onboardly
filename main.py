@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    name = os.environ.get("NAME", "Github Actions deployed with commit message")
+    name = os.environ.get("NAME", "Github Actions deployed")
     return "Hello {}!".format(name)
 
 
