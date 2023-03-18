@@ -1,32 +1,39 @@
-# .github/workflows/deploy.yml
-name: Deploy to Cloud Run
-on:
+name: "Deploy Onboardly to Google Cloud Run"
+'on':
   push:
     branches:
-      - master
+      - main
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   APP_ID: onboardly
   RUN_REGION: europe-west1
   SA_KEY_JSON: ${{ secrets.GCP_SA_KEY_JSON }}
+  EMAIL: ${{ secrets.GCP_EMAIL }}
+  SERVICE_ID: ${{ secrets.GCP_SERVICE_ID }}
 jobs:
   deploy:
-    name: Deploy to Cloud Run
+    name: "Deploying Onboardly"
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'to deploy')"
+    if: 'contains(github.event.head_commit.message, ''bump version'')'
     steps:
-      - uses: actions/checkout@v2
-
-      # Setup gcloud CLI
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setting up
+        uses: google-github-actions/setup-gcloud@master
         with:
-          version: "290.0.1"
-          service_account_key: ${{ secrets.GCP_SA_KEY_JSON }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      # Build and push image to Google Container Registry
-      - name: Build
-        run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA
-
-      - name: Deploy
-        run: gcloud run deploy $APP_ID --image gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --platform managed --region $RUN_REGION --allow-unauthenticated
+          version: 286.0.0
+          service_account_key: '${{ secrets.GCP_SA_KEY_JSON }}'
+          service_account_email: $EMAIL
+          project_id: $PROJECT_ID
+      - name: "Building"
+        run: |-
+          gcloud builds submit \
+            --tag gcr.io/$PROJECT_ID/$SERVICE_ID
+      - name: "Deploy"
+        uses: google-github-actions/deploy-cloudrun@main
+        with:
+          service: $SERVICE_ID
+          image: gcr.io/$PROJECT_ID/$SERVICE_ID
+          region: REGION
+          credentials: '${{ secrets.GCP_SA_KEY_JSON }}'
+          project_id: $PROJECT_ID
