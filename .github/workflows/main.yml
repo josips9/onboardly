@@ -2,7 +2,7 @@ name: "Deploy Onboardly to Google Cloud Run"
 'on':
   push:
     branches:
-      - main
+      - master
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   APP_ID: onboardly
