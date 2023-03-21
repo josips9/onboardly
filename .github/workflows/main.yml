@@ -42,7 +42,7 @@ jobs:
             --tag gcr.io/$PROJECT_ID/$SERVICE_ID
 
       - name: "Deploy"
-        uses: google-github-actions/deploy-cloudrun@v1
+        uses: google-github-actions/deploy-cloudrun@v1.0
         with:
           service: $SERVICE_ID
           image: gcr.io/$PROJECT_ID/$SERVICE_ID
