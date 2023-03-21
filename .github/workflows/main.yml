@@ -29,7 +29,7 @@ jobs:
           gcloud builds submit \
             --tag gcr.io/$PROJECT_ID/$SERVICE_ID
       - name: "Deploy"
-        uses: google-github-actions/deploy-cloudrun@main
+        uses: google-github-actions/deploy-cloudrun@master
         with:
           service: $SERVICE_ID
           image: gcr.io/$PROJECT_ID/$SERVICE_ID
