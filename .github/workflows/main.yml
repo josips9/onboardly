@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: "Setting up"
-        uses: google-github-actions/setup-gcloud@main
+        uses: google-github-actions/setup-gcloud@v1
         with:
           version: '318.0.0'
           service_account_key: '${{ secrets.GCP_SA_KEY_JSON }}'
