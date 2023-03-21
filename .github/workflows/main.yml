@@ -17,10 +17,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setting up
-        uses: google-github-actions/setup-gcloud@v1
+      - name: "Setting up"
+        uses: google-github-actions/setup-gcloud@main
         with:
-          version: 286.0.0
+          version: '318.0.0'
           service_account_key: '${{ secrets.GCP_SA_KEY_JSON }}'
           service_account_email: $EMAIL
           project_id: $PROJECT_ID
@@ -29,7 +29,7 @@ jobs:
           gcloud builds submit \
             --tag gcr.io/$PROJECT_ID/$SERVICE_ID
       - name: "Deploy"
-        uses: google-github-actions/deploy-cloudrun@main
+        uses: google-github-actions/deploy-cloudrun@v1
         with:
           service: $SERVICE_ID
           image: gcr.io/$PROJECT_ID/$SERVICE_ID
