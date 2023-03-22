@@ -39,7 +39,7 @@ jobs:
       - name: "Building"
         run: |-
           gcloud builds submit \
-            --tag gcr.io/$PROJECT_ID/$SERVICE_ID
+            --tag gcr.io/onboardly-380704/onboardly
 
       - name: "Deploy"
         uses: google-github-actions/deploy-cloudrun@v1
