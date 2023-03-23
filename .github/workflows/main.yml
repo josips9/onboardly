@@ -40,12 +40,12 @@ jobs:
       - name: "Building"
         run: |-
           gcloud builds submit \
-            --tag gcr.io/$PROJECT_ID/$SERVICE_ID
+            --tag gcr.io/onboardly-380704/onboardly
 
       - name: "Deploy"
         uses: 'google-github-actions/deploy-cloudrun@v1'
         with:
-          service: $SERVICE_ID
-          image: gcr.io/${PROJECT_ID}/${SERVICE_ID}
+          service: onboardly
+          image: gcr.io/onboardly-380704/onboardly
           region: $REGION
-          project_id: $PROJECT_ID
+          project_id: onboardly-380704
