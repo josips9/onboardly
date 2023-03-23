@@ -47,5 +47,5 @@ jobs:
         with:
           service: onboardly
           image: gcr.io/onboardly-380704/onboardly
-          region: $REGION
+          region: europe-west1
           project_id: onboardly-380704
