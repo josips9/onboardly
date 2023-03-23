@@ -46,6 +46,6 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@v1'
         with:
           service: $SERVICE_ID
-          image: gcr.io/$PROJECT_ID/$SERVICE_ID
+          image: gcr.io/${PROJECT_ID}/${SERVICE_ID}
           region: $REGION
           project_id: $PROJECT_ID
